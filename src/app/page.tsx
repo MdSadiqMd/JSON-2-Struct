@@ -9,6 +9,18 @@ import 'prismjs/themes/prism-tomorrow.css';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
+type JsonValue =
+    | string
+    | number
+    | boolean
+    | null
+    | JsonObject
+    | JsonValue[];
+
+interface JsonObject {
+    [key: string]: JsonValue;
+}
+
 export default function JsonToGoStructConverter() {
     const [jsonInput, setJsonInput] = useState('');
     const [goStruct, setGoStruct] = useState('');
@@ -24,12 +36,13 @@ export default function JsonToGoStructConverter() {
             const structName = 'MyStruct';
             const result = generateGoStruct(jsonObj, structName);
             setGoStruct(result);
-        } catch (error) {
+        } catch (parseError) {
             setGoStruct('Error: Invalid JSON input');
+            console.log('Error parsing JSON:', parseError);
         }
     };
 
-    const generateGoStruct = (obj: any, structName: string): string => {
+    const generateGoStruct = (obj: JsonObject, structName: string): string => {
         let result = `type ${structName} struct {\n`;
         for (const [key, value] of Object.entries(obj)) {
             const fieldName = key.charAt(0).toUpperCase() + key.slice(1);
@@ -40,7 +53,7 @@ export default function JsonToGoStructConverter() {
         return result;
     };
 
-    const getGoType = (value: any): string => {
+    const getGoType = (value: JsonValue): string => {
         if (Array.isArray(value)) {
             if (value.length > 0) {
                 return '[]' + getGoType(value[0]);
@@ -70,8 +83,8 @@ export default function JsonToGoStructConverter() {
             await navigator.clipboard.writeText(goStruct);
             setCopied(true);
             setTimeout(() => setCopied(false), 3000);
-        } catch (err) {
-            console.error("Failed to copy text: ", err);
+        } catch (copyError) {
+            console.error("Failed to copy text: ", copyError);
         }
     };
 
