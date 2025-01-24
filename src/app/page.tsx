@@ -127,10 +127,23 @@ export default function JsonToGoStructConverter() {
             </div>
             <Button
                 onClick={convertJsonToGoStruct}
-                className="mt-6 w-[15%] bg-blue-600 hover:bg-blue-700 transition-colors duration-300"
+                className="mt-6 px-2 md:w-auto bg-blue-600 hover:bg-blue-700 transition-colors duration-300 md:text-sm"
             >
                 Convert to Go Struct
             </Button>
+            <footer className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gray-800 bg-opacity-80 backdrop-blur-sm text-gray-300 py-2 px-4 rounded-full shadow-lg flex items-center space-x-2 transition-all duration-300 hover:bg-opacity-100">
+                    <a
+                        href="https://x.com/Md_Sadiq_Md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
+                        title="Follow @Md_Sadiq_Md on X"
+                    >
+                        <span className="text-sm font-medium">Built by @Md_Sadiq_Md</span>
+                    </a>
+                </div>
+            </footer>
         </div>
     );
 }
