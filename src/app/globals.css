@@ -3,40 +3,38 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
-
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
-
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
-
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
-
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
-
-        --ring: 215 20.2% 65.1%;
-
-        --radius: 0.5rem;
+    * {
+        @apply border-border;
     }
 
-    .dark {
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #3b82f6;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #2563eb;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #1e293b;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-corner {
+        background: #1e293b;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    :root {
         --background: 222.2 84% 4.9%;
         --foreground: 210 40% 98%;
 
@@ -68,35 +66,29 @@
     }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
+pre[class*="language-"] {
+    background: #1e1e1e;
+    border-radius: 0.5rem;
+}
 
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
+code[class*="language-"] {
+    text-shadow: none;
+}
 
-    ::-webkit-scrollbar-thumb {
-        background: #3b82f6;
-        border-radius: 8px;
-    }
+.hover\:scale-102:hover {
+    transform: scale(1.02);
+}
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: #2563eb;
-    }
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
 
-    ::-webkit-scrollbar-track {
-        background: #1e293b;
-        border-radius: 8px;
-    }
+.ease-in-out {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    ::-webkit-scrollbar-corner {
-        background: #1e293b;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-    }
+.duration-300 {
+    transition-duration: 300ms;
 }
