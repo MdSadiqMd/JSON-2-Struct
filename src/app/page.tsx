@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { Check, Copy } from 'lucide-react';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-go';
 import 'prismjs/components/prism-json';
@@ -11,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 export default function JsonToGoStructConverter() {
     const [jsonInput, setJsonInput] = useState('');
     const [goStruct, setGoStruct] = useState('');
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         Prism.highlightAll();
@@ -63,6 +65,16 @@ export default function JsonToGoStructConverter() {
         }
     };
 
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(goStruct);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 3000);
+        } catch (err) {
+            console.error("Failed to copy text: ", err);
+        }
+    };
+
     return (
         <div className="container mx-auto p-4 min-h-screen bg-gray-900 text-gray-100">
             <h1 className="text-3xl font-bold mb-6 text-center">JSON to Go Struct Converter</h1>
@@ -79,13 +91,25 @@ export default function JsonToGoStructConverter() {
                         className="h-[400px] bg-gray-800 text-gray-100 font-mono"
                     />
                 </div>
-                <div className="transition-all duration-300 ease-in-out transform hover:scale-102">
+                <div className="transition-all duration-300 ease-in-out transform hover:scale-102 relative">
                     <label htmlFor="goStruct" className="block text-sm font-medium mb-2">
                         Go Struct Output
                     </label>
                     <pre className="h-[400px] overflow-auto bg-gray-800 rounded-md p-4">
                         <code className="language-go">{goStruct}</code>
                     </pre>
+                    {goStruct && (
+                        <button
+                            onClick={copyToClipboard}
+                            className="absolute top-2 right-2 p-2 bg-gray-700 rounded-md hover:bg-gray-600 transition-colors duration-300"
+                            title="Copy to clipboard"
+                        >
+                            {copied ?
+                                <Check size={20} className="text-green-500" />
+                                : <Copy size={20} className="text-gray-300" />
+                            }
+                        </button>
+                    )}
                 </div>
             </div>
             <Button
