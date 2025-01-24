@@ -10,6 +10,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="dark">
+            <head>
+                <title>JSON-2-Struct</title>
+            </head>
             <body
                 className={`${inter.className} bg-gray-900 text-gray-100`}
             >
